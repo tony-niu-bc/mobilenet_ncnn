@@ -264,3 +264,12 @@ lib     libncnn.a 将会存放在 Android 项目的 src/main/jniLibs/armeabi-v7a
 
 
 
+复制编译 NCNN 库得到的 include 文件夹(C++头文件)到 cpp 目录下。
+
+也复制 mobilenet_v2.id.h 到 cpp 目录下。
+
+
+
+在 main 目录下创建 jniLibs/armeabi-v7a 目录，
+
+并把编译 NCNN 库得到的 libncnn.a 复制到 armeabi-v7a 目录下。

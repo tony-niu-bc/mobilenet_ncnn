@@ -34,6 +34,8 @@ captures/
 
 # IntelliJ
 *.iml
+.cxx/
+.idea/
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
