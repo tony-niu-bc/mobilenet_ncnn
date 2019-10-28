@@ -5,44 +5,49 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-# Creates and names a library, sets it as either STATIC
-# or SHARED, and provides the relative paths to its source code.
-# You can define multiple libraries, and CMake builds them for you.
-# Gradle automatically packages shared libraries with your APK.
-
-add_library(ncnn STATIC IMPORTED)
-set_target_properties(ncnn PROPERTIES IMPORTED_LOCATION ${PROJECT_NAME}/libs/${ANDROID_ABI}/libncnn.a)
-
-add_library( # Sets the name of the library.
-             native-lib
-
-             # Sets the library as a shared library.
-             SHARED
-
-             # Provides a relative path to your source file(s).
-             native-lib.cpp )
-
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
 # default, you only need to specify the name of the public NDK library
 # you want to add. CMake verifies that the library exists before
 # completing its build.
 
-find_library( # Sets the name of the path variable.
-              log-lib
+include_directories(
+    ${CMAKE_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/ncnn
+)
 
-              # Specifies the name of the NDK library that
-              # you want CMake to locate.
-              log )
+#添加库文件搜索目录
+link_directories(ncnn/armeabi-v7a)
+
+# Creates and names a library, sets it as either STATIC
+# or SHARED, and provides the relative paths to its source code.
+# You can define multiple libraries, and CMake builds them for you.
+# Gradle automatically packages shared libraries with your APK.
+
+# Sets the name of the library.
+add_library(
+    native-lib
+
+    # Sets the library as a shared library.
+    SHARED
+
+    # Provides a relative path to your source file(s).
+    native-lib.cpp
+)
 
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
 
-target_link_libraries(# Specifies the target library.
-                      native-lib
+# Specifies the target library.
+target_link_libraries(
+    native-lib
 
-                      ncnn
-                      # Links the target library to the log library
-                      # included in the NDK.
-                      ${log-lib} )
+    ncnn
+
+    jnigraphics
+
+    # Links the target library to the log library
+    # included in the NDK.
+    log
+)
