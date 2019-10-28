@@ -5,6 +5,9 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+# 设置生成的 so 动态库输出的路径
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../jnilibs/${ANDROID_ABI})
+
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
 # default, you only need to specify the name of the public NDK library
@@ -17,7 +20,7 @@ include_directories(
 )
 
 #添加库文件搜索目录
-link_directories(ncnn/armeabi-v7a)
+link_directories(ncnn/${ANDROID_ABI})
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -50,4 +53,5 @@ target_link_libraries(
     # Links the target library to the log library
     # included in the NDK.
     log
+    android
 )

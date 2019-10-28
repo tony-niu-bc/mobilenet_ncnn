@@ -72,26 +72,27 @@ public class MainActivity extends Activity
         byte[] param;
         byte[] bin;
 
-        InputStream paramInputStream = getAssets().open("mobilenet_v2.param.bin");
+        InputStream paramInputStream = getApplicationContext().getAssets().open("mobilenet_v2.param.bin");
         int byteParam = paramInputStream.available();
 
-        InputStream binInputStream = getAssets().open("mobilenet_v2.bin");
+        InputStream binInputStream = getApplicationContext().getAssets().open("mobilenet_v2.bin");
         int byteBin = binInputStream.available();
 
         if ((0 < byteParam) &&
             (0 < byteBin))
         {
             param = new byte[byteParam];
-            paramInputStream.close();
 
             bin = new byte[byteBin];
-            binInputStream.close();
 
             if ((byteParam == paramInputStream.read(param) &&
                 (byteBin   == binInputStream.read(bin))))
             {
                 load_result = Init(param, bin);
             }
+
+            binInputStream.close();
+            paramInputStream.close();
         }
 
         Log.d("load model", "result:" + load_result);
